@@ -68,7 +68,7 @@
                             <strong>Productos:</strong>
                             <ul class="mt-2">
                                 @foreach($order['items'] as $item)
-                                    <li>{{ $item['name'] }} x {{ $item['quantity'] }} - ${{ number_format($item['subtotal'], 2) }}</li>
+                                    <li>{{ $item['name'] }} x {{ $item['quantity'] }} - ₡{{ number_format($item['subtotal'], 0) }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -84,7 +84,7 @@
                                 <strong>Envío:</strong><br>
                                 {{ $order['shipping']['method'] == 'express' ? 'Express' : 'Estándar' }}<br>
                                 Entrega: {{ $order['shipping']['estimated_delivery'] }}<br>
-                                Costo: ${{ number_format($order['shipping']['cost'], 2) }}
+                                Costo: ₡{{ number_format($order['shipping']['cost'], 0) }}
                             </div>
                         </div>
 
@@ -97,7 +97,7 @@
 
                         <div class="d-flex justify-content-between">
                             <h4>Total Pagado:</h4>
-                            <h4 class="text-success">${{ number_format($order['total'], 2) }}</h4>
+                            <h4 class="text-success">₡{{ number_format($order['total'], 0) }}</h4>
                         </div>
 
                         <div class="row mt-3">

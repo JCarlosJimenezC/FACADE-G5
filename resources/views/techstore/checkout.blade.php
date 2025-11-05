@@ -51,13 +51,13 @@
                         @foreach($cart as $item)
                             <div class="d-flex justify-content-between mb-2">
                                 <span>{{ $item['name'] }} x {{ $item['quantity'] }}</span>
-                                <span>${{ number_format($item['subtotal'], 2) }}</span>
+                                <span>₡{{ number_format($item['subtotal'], 0) }}</span>
                             </div>
                         @endforeach
                         <hr>
                         <div class="d-flex justify-content-between">
                             <strong>Subtotal:</strong>
-                            <strong>${{ number_format($total, 2) }}</strong>
+                            <strong>₡{{ number_format($total, 0) }}</strong>
                         </div>
                     </div>
 
@@ -106,9 +106,9 @@
                                 <input class="form-check-input" type="radio" name="shipping_method" 
                                        id="shipping_{{ $key }}" value="{{ $key }}" 
                                        {{ $key == 'standard' ? 'checked' : '' }}
-                                       onchange="updateTotal({{ $method['cost'] }})">
+                                       onchange="updateTotal(this.value)">
                                 <label class="form-check-label" for="shipping_{{ $key }}">
-                                    <strong>{{ $method['name'] }}</strong> - ${{ number_format($method['cost'], 2) }}
+                                    <strong>{{ $method['name'] }}</strong> - ₡{{ number_format($method['cost'], 0) }}
                                     <small class="text-muted">({{ $method['days'] }})</small>
                                 </label>
                             </div>
@@ -154,16 +154,16 @@
                         <div class="section-box">
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Subtotal:</span>
-                                <span id="subtotal">${{ number_format($total, 2) }}</span>
+                                <span id="subtotal">₡{{ number_format($total, 0) }}</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span>Envío:</span>
-                                <span id="shipping-cost">$10.00</span>
+                                <span id="shipping-cost">₡5,500</span>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <h4>Total:</h4>
-                                <h4 class="text-primary" id="grand-total">${{ number_format($total + 10, 2) }}</h4>
+                                <h4 class="text-primary" id="grand-total">₡{{ number_format($total + 5500, 0) }}</h4>
                             </div>
                         </div>
 
@@ -183,9 +183,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Variables del servidor
         const subtotalAmount = {{ $total }};
+        const shippingMethods = {!! json_encode($shippingMethods) !!};
 
-        // Formatear número de tarjeta
+        // Formatear números y validar campos de tarjeta
         document.getElementById('card_number').addEventListener('input', function(e) {
             this.value = this.value.replace(/\D/g, '');
         });
@@ -205,10 +207,11 @@
         });
 
         // Actualizar total con envío
-        function updateTotal(shippingCost) {
+        function updateTotal(method) {
+            const shippingCost = shippingMethods[method].cost;
             const grandTotal = subtotalAmount + shippingCost;
-            document.getElementById('shipping-cost').textContent = '$' + shippingCost.toFixed(2);
-            document.getElementById('grand-total').textContent = '$' + grandTotal.toFixed(2);
+            document.getElementById('shipping-cost').textContent = '₡' + shippingCost.toLocaleString();
+            document.getElementById('grand-total').textContent = '₡' + grandTotal.toLocaleString();
         }
     </script>
 </body>

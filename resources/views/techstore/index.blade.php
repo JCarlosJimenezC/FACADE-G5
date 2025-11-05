@@ -96,7 +96,7 @@
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="text-primary mb-0">${{ number_format($product['price'], 2) }}</h4>
+                            <h4 class="text-primary mb-0">₡{{ number_format($product['price'], 0) }}</h4>
                         </div>
                         <form action="{{ route('techstore.cart.add') }}" method="POST" class="mt-3">
                             @csrf

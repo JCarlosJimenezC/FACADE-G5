@@ -62,8 +62,8 @@
                                 <tr>
                                     <td>{{ $item['name'] }}</td>
                                     <td class="text-center">{{ $item['quantity'] }}</td>
-                                    <td class="text-end">${{ number_format($item['unit_price'], 2) }}</td>
-                                    <td class="text-end">${{ number_format($item['subtotal'], 2) }}</td>
+                                    <td class="text-end">₡{{ number_format($item['unit_price'], 0) }}</td>
+                                    <td class="text-end">₡{{ number_format($item['subtotal'], 0) }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -100,7 +100,7 @@
                                 {{ $order['shipping']['method'] == 'express' ? 'Express' : 'Estándar' }}
                             </div>
                             <div class="col-md-6 mb-2">
-                                <strong>Costo:</strong> ${{ number_format($order['shipping']['cost'], 2) }}
+                                <strong>Costo:</strong> ₡{{ number_format($order['shipping']['cost'], 0) }}
                             </div>
                             <div class="col-md-12">
                                 <strong>Entrega estimada:</strong> {{ $order['shipping']['estimated_delivery'] }}
@@ -132,7 +132,7 @@
                     <!-- Total -->
                     <div class="total-box">
                         <h3>Total a Pagar</h3>
-                        <h1 class="display-3">${{ number_format($order['total'], 2) }}</h1>
+                        <h1 class="display-3">₡{{ number_format($order['total'], 0) }}</h1>
                     </div>
 
                     <!-- Botones -->

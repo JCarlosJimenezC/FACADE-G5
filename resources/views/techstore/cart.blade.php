@@ -77,7 +77,7 @@
                                             <h6 class="mb-0">{{ $item['name'] ?? 'Producto' }}</h6>
                                         </td>
                                         <td class="text-center">
-                                            ${{ number_format($item['price'] ?? 0, 2) }}
+                                            ₡{{ number_format($item['price'] ?? 0, 0) }}
                                         </td>
                                         <td class="text-center">
                                             <input type="number" 
@@ -89,7 +89,7 @@
                                                    style="width: 80px; margin: 0 auto;">
                                         </td>
                                         <td class="text-center">
-                                            <strong>${{ number_format($item['subtotal'] ?? 0, 2) }}</strong>
+                                            <strong>₡{{ number_format($item['subtotal'] ?? 0, 0) }}</strong>
                                         </td>
                                         <td class="text-end">
                                             <form action="{{ route('techstore.cart.remove', $item['id'] ?? 0) }}" 
@@ -116,7 +116,7 @@
                             </button>
                         </div>
                         <div class="col-md-6 text-end">
-                            <h4>Total: <span class="text-primary">${{ number_format($total ?? 0, 2) }}</span></h4>
+                            <h4>Total: <span class="text-primary">₡{{ number_format($total ?? 0, 0) }}</span></h4>
                             <a href="{{ route('techstore.checkout') }}" class="btn btn-success btn-lg mt-2">
                                 <i class="bi bi-credit-card"></i> Proceder al Pago
                             </a>
